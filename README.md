@@ -4,7 +4,7 @@
 
 [Исходные задания](https://github.com/KernelA/cps-researcher-test)
 
-Решения задач нахоятся в Jupyter notebook. Task1, Task3, Task5.
+Решения задач первой части находятся в директории `Part1: Task1, Task3, Task5`, в формате Jupyter notebook.
 
 # Дополнительный анализ статьи
 
