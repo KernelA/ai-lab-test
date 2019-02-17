@@ -6,6 +6,7 @@ import pickle
 import re
 import string
 import unicodedata
+import sys
 from typing import Dict, Any
 
 from nltk.tokenize import TweetTokenizer
@@ -204,15 +205,29 @@ def extract_test_train_features(path_to_compressed_file: str,
 
 if __name__ == "__main__":
     path_to_genders_raw = os.path.join(".", "public.jsonlines.gz")
+
+    if not os.path.exists(path_to_genders_raw):
+        print("Path '{}' does not exist.".format(path_to_genders_raw))
+        sys.exit(1)
+
     author_with_genders = load_genders(path_to_genders_raw)
 
     path_to_authors_test = os.path.join(".", "private.jsonlines.gz")
+
+    if not os.path.exists(path_to_authors_test):
+        print("Path '{}' does not exist.".format(path_to_authors_test))
+        sys.exit(1)
+
     test_authors = load_test_authors(path_to_authors_test)
 
     path_to_post_raw = os.path.join(".", "messages.jsonlines.gz")
 
-    path_to_train_features = os.path.join(".", "train_f.vw")
-    path_to_test_features = os.path.join(".", "test_f.vw")
+    if not os.path.exists(path_to_post_raw):
+        print("Path '{}' does not exist.".format(path_to_post_raw))
+        sys.exit(1)
+
+    path_to_train_features = os.path.join(".", "train.vw")
+    path_to_test_features = os.path.join(".", "test.vw")
 
     extract_test_train_features(path_to_post_raw, path_to_train_features, path_to_test_features
                                 , author_with_genders, test_authors)
