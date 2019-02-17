@@ -2,7 +2,7 @@ import gzip
 import os
 import json
 
-PATH_TO_PRED = os.path.join(".", "pred.vw")
+PATH_TO_PRED = os.path.join(".", "pred.txt")
 PATH_TO_PRIVATE = os.path.join(".", "private-res.jsonlines.gz")
 PATH_TO_TEST = os.path.join(".", "test.vw")
 
