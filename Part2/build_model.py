@@ -68,10 +68,10 @@ def load_test_authors(path_to_gzip: str) -> set:
         return load_pickle_dump(AUTHOR_TEST_DUMP)
     else:
         with gzip.open(path_to_gzip, "rt", encoding="utf-8") as file:
-            lines = tuple(map(json.loads, file.readlines()))
+            lines = map(json.loads, file.readlines())
 
         res = {line["author"] for line in lines}
-        save_pickle_dump(AUTHOR_GENDERS_DUMP, res)
+        save_pickle_dump(AUTHOR_TEST_DUMP, res)
     return res
 
 
@@ -173,6 +173,7 @@ def extract_test_train_features(path_to_compressed_file: str,
                            authors_test: set):
     tokenizer = TweetTokenizer(preserve_case=True, reduce_len=True)
 
+
     with gzip.open(path_to_compressed_file, "rt", encoding="utf-8") as file_in\
         , open(path_to_features_train, "w", encoding="utf-8") as file_train\
         , open(path_to_features_test, "w", encoding="utf-8") as file_test:
@@ -189,6 +190,8 @@ def extract_test_train_features(path_to_compressed_file: str,
                 features = extract_features({"author": author_id, "words": cleaned_words})
                 features_line = ("{key}:{val}".format(key=key, val=features[key]) for key in features if
                                  key != "gender" and key != "author")
+
+                target = -1
 
                 if author_id in authors_with_genders and 5 <= len(cleaned_words):
                     target = REPLACE_TARGET[authors_with_genders[author_id]]
